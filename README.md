@@ -1,5 +1,5 @@
 # node-express-ts-mongo-docker-api
 
-Start server: npm start
+Start Server: npm start
 
-Start MongoDB Docker container: docker-compose up
+Start MongoDB Docker Container: docker-compose up
