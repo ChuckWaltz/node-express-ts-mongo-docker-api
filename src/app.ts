@@ -1,7 +1,8 @@
 import express, { Application, Router } from "express";
+import { resolve } from "path";
+import { config } from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
-import { MONGO_URL } from "./constants/api.constants";
 
 import { ExampleController } from "./controllers/example.controller";
 
@@ -31,6 +32,9 @@ class App {
   }
 
   private setConfig() {
+    //Load environment variables w/ dotenv
+    config({ path: resolve(__dirname, "./config/config.env") });
+
     //Allows us to receive requests with data in json format
     this.app.use(express.json());
 
@@ -43,7 +47,7 @@ class App {
 
   private setMongoConfig() {
     mongoose.Promise = global.Promise;
-    mongoose.connect(MONGO_URL, {
+    mongoose.connect(process.env.MONGO_URI as string, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false
