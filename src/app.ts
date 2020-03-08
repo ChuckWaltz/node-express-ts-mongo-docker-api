@@ -4,13 +4,13 @@ import { config } from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 
-import { ExampleRoutes } from "./routes/example.routes";
+import { ExampleRouter } from "./routers/example.router";
 
 class App {
   public app: Application;
   private router: Router;
 
-  public exampleRoutes: ExampleRoutes;
+  public exampleRouter: ExampleRouter;
 
   constructor() {
     this.app = express();
@@ -22,8 +22,8 @@ class App {
     // Set base route for router
     this.app.use("/api", this.router);
 
-    // Initialize routes
-    this.exampleRoutes = new ExampleRoutes(this.router);
+    // Initialize routers
+    this.exampleRouter = new ExampleRouter(this.router);
 
     // Welcome message for root
     this.app.use("/", (req, res) => {
