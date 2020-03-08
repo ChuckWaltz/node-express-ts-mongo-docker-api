@@ -95,7 +95,7 @@ export class ExampleService {
         });
       }
 
-      await example.update(req.body, { new: true });
+      await example.updateOne(req.body, { new: true });
 
       const updated = await Example.findById(req.params.id);
 
