@@ -8,8 +8,8 @@ export class ExampleController {
     this.exampleService = new ExampleService();
 
     // Set up routes
-    this.router.route("/examples").get(this.exampleService.getAllExample);
-    this.router.route("/example").post(this.exampleService.addNewExample);
+    this.router.route("/examples").get(this.exampleService.getExamples);
+    this.router.route("/example").post(this.exampleService.addExample);
     this.router
       .route("/example/:id")
       .delete(this.exampleService.deleteExample)
