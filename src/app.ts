@@ -33,7 +33,7 @@ class App {
 
   private setConfig() {
     //Load environment variables w/ dotenv
-    config({ path: resolve(__dirname, "./config/config.env") });
+    config({ path: resolve(__dirname, "./config/.env") });
 
     //Allows us to receive requests with data in json format
     this.app.use(express.json());

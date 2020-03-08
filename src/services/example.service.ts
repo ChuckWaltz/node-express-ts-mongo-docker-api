@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { MongooseDocument } from "mongoose";
 import { Example } from "../models/example.model";
 
 export class ExampleService {
