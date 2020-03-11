@@ -5,12 +5,14 @@ import cors from "cors";
 import mongoose from "mongoose";
 
 import { ExampleRouter } from "./routers/example.router";
+import { UserRouter } from "./routers/user.router";
 
 class App {
   public app: Application;
   private router: Router;
 
   public exampleRouter: ExampleRouter;
+  public userRouter: UserRouter;
 
   constructor() {
     this.app = express();
@@ -24,6 +26,7 @@ class App {
 
     // Initialize routers
     this.exampleRouter = new ExampleRouter(this.router);
+    this.userRouter = new UserRouter(this.router);
 
     // Welcome message for root
     this.app.use("/", (req, res) => {
@@ -50,7 +53,8 @@ class App {
     mongoose.connect(process.env.MONGO_URI as string, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false
+      useFindAndModify: false,
+      useCreateIndex: true
     });
   }
 }
