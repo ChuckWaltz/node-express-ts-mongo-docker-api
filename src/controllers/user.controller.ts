@@ -16,14 +16,14 @@ export class UserController {
 
       // Simple validation
       if (!name || !email || !password) {
-        response.message = `Name, Email, and Password fields are required.`;
+        response.message = `Name, Email, and Password fields are required`;
         return res.status(400).json(response);
       }
 
       // Check for existing User
       const exists = await User.findOne({ email });
       if (exists) {
-        response.message = `User already exists.`;
+        response.message = `User already exists`;
         return res.status(400).json(response);
       }
 
@@ -43,6 +43,7 @@ export class UserController {
       );
 
       response.success = true;
+      response.message = `User added successfully`;
       response.payload = {
         token,
         user: {
@@ -68,21 +69,21 @@ export class UserController {
 
       // Simple validation
       if (!email || !password) {
-        response.message = `Email, and Password fields are required.`;
+        response.message = `Email, and Password fields are required`;
         return res.status(400).json(response);
       }
 
       // Check if user exists
       const existingUser: any = await User.findOne({ email });
       if (!existingUser) {
-        response.message = `User does not exist.`;
+        response.message = `User does not exist`;
         return res.status(400).json(response);
       }
 
       // Validate password
       const isMatch = await bcrypt.compare(password, existingUser.password);
       if (!isMatch) {
-        response.message = `Invalid password.`;
+        response.message = `Invalid password`;
         return res.status(400).json(response);
       }
 
@@ -93,6 +94,7 @@ export class UserController {
       );
 
       response.success = true;
+      response.message = "User authorized successfully";
       response.payload = {
         token,
         user: {

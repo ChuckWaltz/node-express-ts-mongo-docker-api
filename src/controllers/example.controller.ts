@@ -13,6 +13,7 @@ export class ExampleController {
       const examples = await Example.find();
 
       response.success = true;
+      response.message = `Examples returned successfully`;
       response.payload = { count: examples.length, examples };
       return res.status(200).json(response);
     } catch (err) {
@@ -31,6 +32,7 @@ export class ExampleController {
       const newExample = await Example.create(req.body);
 
       response.success = true;
+      response.message = `Example added successfully`;
       response.payload = newExample;
       return res.status(201).json(response);
     } catch (err) {
@@ -67,6 +69,7 @@ export class ExampleController {
       await example.remove();
 
       response.success = true;
+      response.message = `Example deleted successfully`;
       response.payload = example;
       return res.status(200).json(response);
     } catch (err) {
@@ -94,6 +97,7 @@ export class ExampleController {
       const updated = await Example.findById(req.params.id);
 
       response.success = true;
+      response.message = `Example updated successfully`;
       response.payload = updated;
       return res.status(200).json(response);
     } catch (err) {
