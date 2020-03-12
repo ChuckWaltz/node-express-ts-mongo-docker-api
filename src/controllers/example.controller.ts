@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import APIResponse from "../objects/APIResponse";
 import { Example } from "../models/example.model";
 
 export class ExampleController {
@@ -6,19 +7,17 @@ export class ExampleController {
   // @route   GET /api/examples
   // @access  Public
   public async getExamples(req: Request, res: Response) {
+    let response = new APIResponse();
+
     try {
       const examples = await Example.find();
 
-      return res.status(200).json({
-        success: true,
-        count: examples.length,
-        data: examples
-      });
+      response.success = true;
+      response.payload = { count: examples.length, examples };
+      return res.status(200).json(response);
     } catch (err) {
-      return res.status(500).json({
-        success: false,
-        error: `Server Error: ${err}`
-      });
+      response.message = `Server Error: ${err}`;
+      return res.status(500).json(response);
     }
   }
 
@@ -26,13 +25,14 @@ export class ExampleController {
   // @route   POST /api/example
   // @access  Public
   public async addExample(req: Request, res: Response) {
+    let response = new APIResponse();
+
     try {
       const newExample = await Example.create(req.body);
 
-      return res.status(201).json({
-        success: true,
-        data: newExample
-      });
+      response.success = true;
+      response.payload = newExample;
+      return res.status(201).json(response);
     } catch (err) {
       if (err.name === "ValidationError") {
         // Pull out the error messages from the errors within err to display to user
@@ -40,15 +40,12 @@ export class ExampleController {
           (val: any) => val.message
         );
 
-        return res.status(400).json({
-          success: false,
-          error: messages
-        });
+        response.message = err.name;
+        response.payload = messages;
+        return res.status(400).json(response);
       } else {
-        return res.status(500).json({
-          success: false,
-          error: `Server Error: ${err}`
-        });
+        response.message = `Server Error: ${err}`;
+        return res.status(500).json(response);
       }
     }
   }
@@ -57,27 +54,24 @@ export class ExampleController {
   // @route   DELETE /api/example/:id
   // @access  Public
   public async deleteExample(req: Request, res: Response) {
+    let response = new APIResponse();
+
     try {
       const example = await Example.findById(req.params.id);
 
       if (!example) {
-        return res.status(404).json({
-          success: false,
-          error: `No example found with ID: ${req.params.id}`
-        });
+        response.message = `No example found with ID: ${req.params.id}`;
+        return res.status(404).json(response);
       }
 
       await example.remove();
 
-      return res.status(200).json({
-        success: true,
-        data: example
-      });
+      response.success = true;
+      response.payload = example;
+      return res.status(200).json(response);
     } catch (err) {
-      return res.status(500).json({
-        success: false,
-        error: `Server Error: ${err}`
-      });
+      response.message = `Server Error: ${err}`;
+      return res.status(500).json(response);
     }
   }
 
@@ -85,29 +79,26 @@ export class ExampleController {
   // @route   POST /api/example/:id
   // @access  Public
   public async updateExample(req: Request, res: Response) {
+    let response = new APIResponse();
+
     try {
       const example = await Example.findById(req.params.id);
 
       if (!example) {
-        return res.status(404).json({
-          success: false,
-          error: `No example found with ID: ${req.params.id}`
-        });
+        response.message = `No example found with ID: ${req.params.id}`;
+        return res.status(404).json(response);
       }
 
       await example.updateOne(req.body, { new: true });
 
       const updated = await Example.findById(req.params.id);
 
-      return res.status(200).json({
-        success: true,
-        data: updated
-      });
+      response.success = true;
+      response.payload = updated;
+      return res.status(200).json(response);
     } catch (err) {
-      return res.status(500).json({
-        success: false,
-        error: `Server Error: ${err}`
-      });
+      response.message = `Server Error: ${err}`;
+      return res.status(500).json(response);
     }
   }
 }

@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import APIResponse from "../objects/APIResponse";
 import { User } from "../models/user.model";
 import bcrypt from "bcrypt";
 import jwt, { Secret } from "jsonwebtoken";
@@ -8,23 +9,22 @@ export class UserController {
   // @route   POST /api/user
   // @access  Public
   public async addUser(req: Request, res: Response) {
+    let response = new APIResponse();
+
     try {
       const { name, email, password } = req.body;
 
       // Simple validation
       if (!name || !email || !password) {
-        return res.status(400).json({
-          success: false,
-          error: `Name, Email, and Password fields are required.`
-        });
+        response.message = `Name, Email, and Password fields are required.`;
+        return res.status(400).json(response);
       }
 
       // Check for existing User
       const exists = await User.findOne({ email });
       if (exists) {
-        return res
-          .status(400)
-          .json({ success: false, error: `User already exists.` });
+        response.message = `User already exists.`;
+        return res.status(400).json(response);
       }
 
       const newUser: any = new User({ name, email, password });
@@ -42,19 +42,19 @@ export class UserController {
         { expiresIn: 3600 }
       );
 
-      return res.status(200).json({
+      response.success = true;
+      response.payload = {
         token,
         user: {
           id: savedUser.id,
           name: savedUser.name,
           email: savedUser.email
         }
-      });
+      };
+      return res.status(200).json(response);
     } catch (err) {
-      return res.status(500).json({
-        success: false,
-        error: `Server Error: ${err}`
-      });
+      response.message = `Server Error: ${err}`;
+      return res.status(500).json(response);
     }
   }
 
@@ -62,31 +62,29 @@ export class UserController {
   // @route   POST /api/userAuth
   // @access  Public
   public async userAuth(req: Request, res: Response) {
+    let response = new APIResponse();
     try {
       const { email, password } = req.body;
 
       // Simple validation
       if (!email || !password) {
-        return res.status(400).json({
-          success: false,
-          error: `Email, and Password fields are required.`
-        });
+        response.message = `Email, and Password fields are required.`;
+        return res.status(400).json(response);
       }
 
       // Check if user exists
       const existingUser: any = await User.findOne({ email });
       if (!existingUser) {
-        return res
-          .status(400)
-          .json({ success: false, error: `User does not exist.` });
+        response.message = `User does not exist.`;
+        return res.status(400).json(response);
       }
 
       // Validate password
       const isMatch = await bcrypt.compare(password, existingUser.password);
-      if (!isMatch)
-        return res
-          .status(400)
-          .json({ success: false, error: `Invalid password.` });
+      if (!isMatch) {
+        response.message = `Invalid password.`;
+        return res.status(400).json(response);
+      }
 
       const token = await jwt.sign(
         { id: existingUser.id },
@@ -94,19 +92,19 @@ export class UserController {
         { expiresIn: 3600 }
       );
 
-      return res.status(200).json({
+      response.success = true;
+      response.payload = {
         token,
         user: {
           id: existingUser.id,
           name: existingUser.name,
           email: existingUser.email
         }
-      });
+      };
+      return res.status(200).json(response);
     } catch (err) {
-      return res.status(500).json({
-        success: false,
-        error: `Server Error: ${err}`
-      });
+      response.message = `Server Error: ${err}`;
+      return res.status(500).json(response);
     }
   }
 }
