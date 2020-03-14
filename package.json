@@ -4,8 +4,10 @@
   "description": "Basic CRUD API example using Node, Express, TS, and a Dockerized MongoDB instance.",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node",
+    "server": "nodemon",
+    "client": "npm start --prefix src/client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Chuck Waltz",
   "license": "MIT",
@@ -25,6 +27,7 @@
     "@types/jsonwebtoken": "^8.3.8",
     "@types/mongoose": "^5.7.3",
     "@types/node": "^13.7.7",
+    "concurrently": "^5.1.0",
     "nodemon": "^2.0.2",
     "ts-node": "^8.6.2",
     "typescript": "^3.8.3"
