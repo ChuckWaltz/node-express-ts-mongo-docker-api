@@ -1,3 +1,4 @@
+import axios from "axios";
 import { EXAMPLES_LOADING, GET_EXAMPLES } from "./actionTypes";
 
 export const getExamples = () => dispatch => {
@@ -5,7 +6,10 @@ export const getExamples = () => dispatch => {
   axios
     .get("/api/examples")
     .then(res => {
-      dispatch({ type: GET_EXAMPLES, payload: res.data });
+      console.log(res);
+      setTimeout(() => {
+        dispatch({ type: GET_EXAMPLES, payload: res.data.payload.examples });
+      }, 2000);
     })
     .catch(err => {
       console.log(err);

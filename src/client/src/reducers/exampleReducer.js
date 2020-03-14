@@ -2,7 +2,7 @@ import { GET_EXAMPLES, EXAMPLES_LOADING } from "../actions/actionTypes";
 
 const initialState = {
   examples: [],
-  loading: false
+  examplesLoading: false
 };
 
 export default function(state = initialState, action) {
@@ -11,12 +11,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         examples: action.payload,
-        loading: false
+        examplesLoading: false
       };
     case EXAMPLES_LOADING:
       return {
         ...state,
-        loading: true
+        examplesLoading: true
       };
     default:
       return state;
