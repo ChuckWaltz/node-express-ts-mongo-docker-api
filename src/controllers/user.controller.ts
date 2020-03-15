@@ -125,6 +125,7 @@ export class UserController {
         return res.status(400).json(response);
       }
 
+      response.success = true;
       response.message = `User authenticated.`;
       response.payload = user;
       return res.status(200).json(response);
