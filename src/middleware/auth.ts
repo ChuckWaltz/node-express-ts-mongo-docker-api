@@ -9,7 +9,7 @@ function auth(req: any, res: any, next: any) {
   // Check for token
   if (!token) {
     response.message = `No token, authorization denied.`;
-    res.status(401).json(response);
+    return res.status(401).json(response);
   }
 
   try {
