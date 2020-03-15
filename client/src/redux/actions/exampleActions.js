@@ -4,7 +4,7 @@ import { EXAMPLES_LOADING, GET_EXAMPLES } from "./actionTypes";
 export const getExamples = () => dispatch => {
   dispatch({ type: EXAMPLES_LOADING });
   axios
-    .get("/api/examples")
+    .get("/api/example")
     .then(res => {
       console.log(res);
       setTimeout(() => {
