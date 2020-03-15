@@ -9,7 +9,7 @@ export const getExamples = () => dispatch => {
       console.log(res);
       setTimeout(() => {
         dispatch({ type: GET_EXAMPLES, payload: res.data.payload.examples });
-      }, 2000);
+      }, 1000);
     })
     .catch(err => {
       console.log(err);

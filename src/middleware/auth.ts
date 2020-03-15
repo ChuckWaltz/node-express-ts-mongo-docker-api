@@ -1,12 +1,7 @@
 import jwt, { Secret } from "jsonwebtoken";
-import { Request, Response, NextFunction } from "express";
 import APIResponse from "../objects/APIResponse";
 
-interface IAuthUserRequest extends Request {
-  user: string;
-}
-
-function auth(req: IAuthUserRequest, res: Response, next: NextFunction) {
+function auth(req: any, res: any, next: any) {
   const token = req.header("x-auth-token");
 
   let response: APIResponse = new APIResponse();
