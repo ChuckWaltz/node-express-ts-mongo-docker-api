@@ -8,7 +8,7 @@ export class UserRouter {
     this.userController = new UserController();
 
     // Set up routes
-    this.router.route("/user").post(this.userController.addUser);
-    this.router.route("/userAuth").post(this.userController.userAuth);
+    this.router.post("/user", this.userController.addUser);
+    this.router.post("/userAuth", this.userController.userAuth);
   }
 }

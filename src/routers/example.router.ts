@@ -9,16 +9,20 @@ export class ExampleRouter {
     this.exampleController = new ExampleController();
 
     // Set up routes
-    this.router.route("/examples").get(this.exampleController.getExamples);
+    this.router.get("/example", this.exampleController.getExamples);
 
-    this.router
-      //.use(auth)
-      .route("/example")
-      .post(this.exampleController.addExample);
-    this.router
-      //.use(auth)
-      .route("/example/:id")
-      .delete(this.exampleController.deleteExample)
-      .post(this.exampleController.updateExample);
+    this.router.post("/example", auth, this.exampleController.addExample);
+
+    this.router.delete(
+      "/example/:id",
+      auth,
+      this.exampleController.deleteExample
+    );
+
+    this.router.post(
+      "/example/:id",
+      auth,
+      this.exampleController.updateExample
+    );
   }
 }
