@@ -13,19 +13,17 @@ import {
 } from "./actionTypes";
 
 // Check token & load user
-export const loadUser = () => (dispatch, getState) => {
+export const loadUser = () => async (dispatch, getState) => {
   // User loading
   dispatch({ type: USER_LOADING });
 
-  axios
-    .get("/api/user/auth", tokenConfig(getState))
-    .then(res => {
-      dispatch({ type: USER_LOADED, payload: res.data });
-    })
-    .catch(err => {
-      dispatch(returnErrors(err.response.data, err.response.status));
-      dispatch({ type: AUTH_ERROR });
-    });
+  try {
+    const res = await axios.get("/api/user/auth", tokenConfig(getState));
+    dispatch({ type: USER_LOADED, payload: res.data });
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status));
+    dispatch({ type: AUTH_ERROR });
+  }
 };
 
 // Setup config/headers & token
