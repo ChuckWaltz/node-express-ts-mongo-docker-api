@@ -60,9 +60,9 @@ export class UserController {
   }
 
   // @desc    Authenticate user
-  // @route   POST /api/userAuth
+  // @route   POST /api/user/login
   // @access  Public
-  public async userAuth(req: Request, res: Response) {
+  public async loginUser(req: Request, res: Response) {
     let response = new APIResponse();
     try {
       const { email, password } = req.body;
@@ -103,6 +103,30 @@ export class UserController {
           email: existingUser.email
         }
       };
+      return res.status(200).json(response);
+    } catch (err) {
+      response.message = `Server Error: ${err}`;
+      return res.status(500).json(response);
+    }
+  }
+
+  // @desc    Get user data
+  // @route   GET /api/user/auth
+  // @access  Private
+  public async authUser(req: Request, res: Response) {
+    let response = new APIResponse();
+    try {
+      const { id } = req.user;
+
+      const user = await User.findById(id).select("-password");
+
+      if (!user) {
+        response.message = `Unable to authenticate user.`;
+        return res.status(400).json(response);
+      }
+
+      response.message = `User authenticated.`;
+      response.payload = user;
       return res.status(200).json(response);
     } catch (err) {
       response.message = `Server Error: ${err}`;

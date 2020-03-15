@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { UserController } from "../controllers/user.controller";
+import auth from "../middleware/auth";
 
 export class UserRouter {
   private userController: UserController;
@@ -9,6 +10,7 @@ export class UserRouter {
 
     // Set up routes
     this.router.post("/user", this.userController.addUser);
-    this.router.post("/userAuth", this.userController.userAuth);
+    this.router.post("/user/login", this.userController.loginUser);
+    this.router.get("/user/auth", auth, this.userController.authUser);
   }
 }

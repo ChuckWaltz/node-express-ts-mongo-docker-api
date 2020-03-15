@@ -7,6 +7,16 @@ import mongoose from "mongoose";
 import { ExampleRouter } from "./routers/example.router";
 import { UserRouter } from "./routers/user.router";
 
+//Extend default Express Request/Response types
+declare module "express-serve-static-core" {
+  interface Request {
+    user?: any;
+  }
+  /* interface Response {
+    myField?: string
+  } */
+}
+
 class App {
   public app: Application;
   private router: Router;
