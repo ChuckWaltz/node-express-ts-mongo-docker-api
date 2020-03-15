@@ -24,7 +24,7 @@ export class ExampleController {
 
   // @desc    Add example
   // @route   POST /api/example
-  // @access  Public
+  // @access  Protected
   public async addExample(req: Request, res: Response) {
     let response = new APIResponse();
 
@@ -54,7 +54,7 @@ export class ExampleController {
 
   // @desc    Delete example
   // @route   DELETE /api/example/:id
-  // @access  Public
+  // @access  Protected
   public async deleteExample(req: Request, res: Response) {
     let response = new APIResponse();
 
@@ -80,7 +80,7 @@ export class ExampleController {
 
   // @desc    Update example
   // @route   POST /api/example/:id
-  // @access  Public
+  // @access  Protected
   public async updateExample(req: Request, res: Response) {
     let response = new APIResponse();
 

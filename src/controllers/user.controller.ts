@@ -112,7 +112,7 @@ export class UserController {
 
   // @desc    Get user data
   // @route   GET /api/user/auth
-  // @access  Private
+  // @access  Protected
   public async authUser(req: Request, res: Response) {
     let response = new APIResponse();
     try {
