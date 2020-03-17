@@ -5,11 +5,9 @@ import { connect } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 
-import RegisterModal from "../auth/RegisterModal/RegisterModal";
+import RegisterModal from "../Auth/RegisterModal/RegisterModal";
+import LogoutButton from "../Auth/LogoutButton/LogoutButton";
 
 import "./TopBar.scss";
 
@@ -27,6 +25,7 @@ export class TopBar extends Component {
               Redux
             </Typography>
             <RegisterModal />
+            <LogoutButton />
           </Toolbar>
         </AppBar>
       </div>
