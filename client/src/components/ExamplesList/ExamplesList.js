@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getExamples } from "../actions/exampleActions";
+import { getExamples } from "../../redux/actions/exampleActions";
+
+import "./ExamplesList.scss";
 
 class ExamplesList extends Component {
   static propTypes = {
@@ -17,7 +19,7 @@ class ExamplesList extends Component {
   render() {
     const { examples, examplesLoading } = this.props;
     return (
-      <React.Fragment>
+      <div className="container">
         <h2>Examples</h2>
         {examplesLoading ? <div>Loading...</div> : null}
         {examples.map(e => (
@@ -25,7 +27,7 @@ class ExamplesList extends Component {
             {e.name} - {e.age} - {e.gender}
           </p>
         ))}
-      </React.Fragment>
+      </div>
     );
   }
 }

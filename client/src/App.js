@@ -4,9 +4,20 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import { loadUser } from "./redux/actions/authActions";
 
-import ExamplesList from "./redux/components/ExamplesList";
+import TopBar from "./components/TopBar/TopBar";
+import ExamplesList from "./components/ExamplesList/ExamplesList";
 
-import "./App.css";
+import "typeface-roboto";
+import "./App.scss";
+
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import indigo from "@material-ui/core/colors/indigo";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: indigo
+  }
+});
 
 class App extends Component {
   componentDidMount() {
@@ -15,10 +26,12 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
-          <header>Redux</header>
-          <ExamplesList />
-        </div>
+        <ThemeProvider theme={theme}>
+          <div className="App">
+            <TopBar />
+            <ExamplesList />
+          </div>
+        </ThemeProvider>
       </Provider>
     );
   }
