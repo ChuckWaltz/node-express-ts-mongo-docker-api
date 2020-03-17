@@ -69,7 +69,7 @@ export class UserController {
 
       // Simple validation
       if (!email || !password) {
-        response.message = `Email, and Password fields are required`;
+        response.message = `Email and Password fields are required`;
         return res.status(400).json(response);
       }
 

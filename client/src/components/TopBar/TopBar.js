@@ -8,15 +8,18 @@ import Typography from "@material-ui/core/Typography";
 
 import RegisterModal from "../Auth/RegisterModal/RegisterModal";
 import LogoutButton from "../Auth/LogoutButton/LogoutButton";
+import LoginModal from "../Auth/LoginModal/LoginModal";
 
 import "./TopBar.scss";
 
 export class TopBar extends Component {
   static propTypes = {
-    prop: PropTypes.any
+    auth: PropTypes.object.isRequired
   };
 
   render() {
+    const { isAuthenticated, user } = this.props.auth;
+
     return (
       <div className="root">
         <AppBar position="static" className="appBar">
@@ -25,6 +28,7 @@ export class TopBar extends Component {
               Redux
             </Typography>
             <RegisterModal />
+            <LoginModal />
             <LogoutButton />
           </Toolbar>
         </AppBar>
@@ -33,7 +37,9 @@ export class TopBar extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  auth: state.auth
+});
 
 const mapDispatchToProps = {};
 

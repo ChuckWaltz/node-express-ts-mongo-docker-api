@@ -42,7 +42,6 @@ export const registerUser = ({ name, email, password }) => async dispatch => {
     const res = await axios.post("/api/user", body, config);
     dispatch({ type: REGISTER_SUCCESS, payload: res.data.payload });
   } catch (err) {
-    console.log(err);
     dispatch(
       returnErrors(err.response.data, err.response.status, "REGISTER_FAIL")
     );
@@ -50,6 +49,30 @@ export const registerUser = ({ name, email, password }) => async dispatch => {
   }
 };
 
+// Login User
+export const loginUser = ({ email, password }) => async dispatch => {
+  // Headers
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  // Request body
+  const body = JSON.stringify({ email, password });
+
+  try {
+    const res = await axios.post("/api/user/login", body, config);
+    dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload });
+  } catch (err) {
+    dispatch(
+      returnErrors(err.response.data, err.response.status, "LOGIN_FAIL")
+    );
+    dispatch({ type: LOGIN_FAIL });
+  }
+};
+
+// Logout User
 export const logoutUser = () => dispatch => {
   dispatch({ type: LOGOUT_SUCCESS });
 };
