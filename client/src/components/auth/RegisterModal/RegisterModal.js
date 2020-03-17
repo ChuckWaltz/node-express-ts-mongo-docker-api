@@ -62,7 +62,7 @@ export class RegisterModal extends Component {
         <Dialog
           open={this.state.open}
           maxWidth="sm"
-          fullWidth="true"
+          fullWidth
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Register</DialogTitle>
@@ -74,6 +74,7 @@ export class RegisterModal extends Component {
               label="Name"
               type="name"
               fullWidth
+              onChange={this.onChange}
             />
             <TextField
               margin="normal"
@@ -81,6 +82,7 @@ export class RegisterModal extends Component {
               label="Email Address"
               type="email"
               fullWidth
+              onChange={this.onChange}
             />
             <TextField
               margin="normal"
@@ -88,6 +90,7 @@ export class RegisterModal extends Component {
               label="Password"
               type="password"
               fullWidth
+              onChange={this.onChange}
             />
           </DialogContent>
           <DialogActions>
