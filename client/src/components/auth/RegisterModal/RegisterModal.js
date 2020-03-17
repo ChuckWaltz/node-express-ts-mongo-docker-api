@@ -38,6 +38,16 @@ export class RegisterModal extends Component {
     e.preventDefault();
   };
 
+  onClose = () => {
+    this.setState({
+      open: false,
+      name: "",
+      email: "",
+      password: "",
+      errorMessage: null
+    });
+  };
+
   render() {
     return (
       <div>
@@ -66,7 +76,6 @@ export class RegisterModal extends Component {
               fullWidth
             />
             <TextField
-              autoFocus
               margin="normal"
               id="email"
               label="Email Address"
@@ -74,7 +83,6 @@ export class RegisterModal extends Component {
               fullWidth
             />
             <TextField
-              autoFocus
               margin="normal"
               id="password"
               label="Password"
@@ -83,7 +91,7 @@ export class RegisterModal extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button color="primary" variant="contained">
+            <Button color="primary" variant="contained" onClick={this.onClose}>
               Cancel
             </Button>
             <Button color="primary" variant="contained">
