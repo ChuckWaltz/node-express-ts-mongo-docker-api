@@ -22,12 +22,18 @@ export const getExamples = () => async dispatch => {
   }
 };
 
-export const addExample = item => async (dispatch, getState) => {
+export const addExample = example => async (dispatch, getState) => {
   try {
-    const res = await axios.post("/api/example", item, tokenConfig(getState));
+    const res = await axios.post(
+      "/api/example",
+      example,
+      tokenConfig(getState)
+    );
     dispatch({ type: ADD_EXAMPLE, payload: res.data.payload });
   } catch (err) {
-    dispatch(returnErrors(err.response.data, err.response.status));
+    dispatch(
+      returnErrors(err.response.data, err.response.status, "ADD_EXAMPLE_FAIL")
+    );
   }
 };
 
