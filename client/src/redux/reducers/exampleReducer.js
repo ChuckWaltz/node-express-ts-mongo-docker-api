@@ -1,4 +1,9 @@
-import { GET_EXAMPLES, EXAMPLES_LOADING } from "../actions/actionTypes";
+import {
+  EXAMPLES_LOADED,
+  EXAMPLES_LOADING,
+  ADD_EXAMPLE,
+  DELETE_EXAMPLE
+} from "../actions/actionTypes";
 
 const initialState = {
   examples: [],
@@ -7,16 +12,26 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_EXAMPLES:
+    case EXAMPLES_LOADING:
+      return {
+        ...state,
+        examplesLoading: true
+      };
+    case EXAMPLES_LOADED:
       return {
         ...state,
         examples: action.payload,
         examplesLoading: false
       };
-    case EXAMPLES_LOADING:
+    case ADD_EXAMPLE:
       return {
         ...state,
-        examplesLoading: true
+        examples: [action.payload, ...state.examples]
+      };
+    case DELETE_EXAMPLE:
+      return {
+        ...state,
+        examples: state.examples.filter(ex => ex._id !== action.payload)
       };
     default:
       return state;

@@ -19,7 +19,7 @@ export const loadUser = () => async (dispatch, getState) => {
 
   try {
     const res = await axios.get("/api/user/auth", tokenConfig(getState));
-    dispatch({ type: USER_LOADED, payload: res.data });
+    dispatch({ type: USER_LOADED, payload: res.data.payload });
   } catch (err) {
     dispatch(returnErrors(err.response.data, err.response.status));
     dispatch({ type: AUTH_ERROR });

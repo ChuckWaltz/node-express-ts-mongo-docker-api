@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import "./RegisterModal.scss";
-
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -11,8 +9,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-import { registerUser } from "../../../redux/actions/authActions";
-import { clearErrors } from "../../../redux/actions/errorActions";
+import { registerUser } from "../../redux/actions/authActions";
+import { clearErrors } from "../../redux/actions/errorActions";
 
 export class RegisterModal extends Component {
   state = {
@@ -76,7 +74,12 @@ export class RegisterModal extends Component {
   render() {
     return (
       <React.Fragment>
-        <Button color="secondary" variant="contained" onClick={this.toggle}>
+        <Button
+          className="registerButton"
+          color="secondary"
+          variant="contained"
+          onClick={this.toggle}
+        >
           Register
         </Button>
         <Dialog

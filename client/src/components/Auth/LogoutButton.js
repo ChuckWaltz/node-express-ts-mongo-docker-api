@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import Button from "@material-ui/core/Button";
 
-import { logoutUser } from "../../../redux/actions/authActions";
+import { logoutUser } from "../../redux/actions/authActions";
 
 export class LogoutButton extends Component {
   static propTypes = {
@@ -14,6 +14,7 @@ export class LogoutButton extends Component {
   render() {
     return (
       <Button
+        className="logoutButton"
         color="secondary"
         variant="contained"
         onClick={this.props.logoutUser}

@@ -6,11 +6,13 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 
-import RegisterModal from "../Auth/RegisterModal/RegisterModal";
-import LogoutButton from "../Auth/LogoutButton/LogoutButton";
-import LoginModal from "../Auth/LoginModal/LoginModal";
+import RegisterModal from "../Auth/RegisterModal";
+import LogoutButton from "../Auth/LogoutButton";
+import LoginModal from "../Auth/LoginModal";
 
 import "./TopBar.scss";
+
+import { Box } from "@material-ui/core";
 
 export class TopBar extends Component {
   static propTypes = {
@@ -20,6 +22,21 @@ export class TopBar extends Component {
   render() {
     const { isAuthenticated, user } = this.props.auth;
 
+    const authButtons = (
+      <React.Fragment>
+        <span id="welcome-message">{user ? `Welcome ${user.name}` : null}</span>
+        <LogoutButton />
+      </React.Fragment>
+    );
+    const guestButtons = (
+      <React.Fragment>
+        <Box mr={1.5}>
+          <RegisterModal />
+        </Box>
+        <LoginModal />
+      </React.Fragment>
+    );
+
     return (
       <div className="root">
         <AppBar position="static" className="appBar">
@@ -27,9 +44,11 @@ export class TopBar extends Component {
             <Typography variant="h6" className="title">
               Redux
             </Typography>
-            <RegisterModal />
-            <LoginModal />
-            <LogoutButton />
+            {isAuthenticated === true
+              ? authButtons
+              : isAuthenticated === false
+              ? guestButtons
+              : null}
           </Toolbar>
         </AppBar>
       </div>

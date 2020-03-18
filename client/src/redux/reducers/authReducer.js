@@ -26,16 +26,17 @@ export default function(state = initialState, action) {
     case USER_LOADED:
       return {
         ...state,
+        user: action.payload,
         isAuthenticated: true,
-        isLoading: false,
-        user: action.payload
+        isLoading: false
       };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
       localStorage.setItem("token", action.payload.token);
       return {
         ...state,
-        ...action.payload,
+        token: action.payload.token,
+        user: action.payload.user,
         isAuthenticated: true,
         isLoading: false
       };

@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import "./LoginModal.scss";
-
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -11,8 +9,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-import { loginUser } from "../../../redux/actions/authActions";
-import { clearErrors } from "../../../redux/actions/errorActions";
+import { loginUser } from "../../redux/actions/authActions";
+import { clearErrors } from "../../redux/actions/errorActions";
 
 export class LoginModal extends Component {
   state = {

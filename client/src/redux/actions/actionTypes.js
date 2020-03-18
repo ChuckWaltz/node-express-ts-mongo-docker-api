@@ -1,5 +1,7 @@
 export const EXAMPLES_LOADING = "EXAMPLES_LOADING";
-export const GET_EXAMPLES = "GET_EXAMPLES";
+export const EXAMPLES_LOADED = "EXAMPLES_LOADED";
+export const ADD_EXAMPLE = "ADD_EXAMPLE";
+export const DELETE_EXAMPLE = "DELETE_EXAMPLE";
 export const USER_LOADING = "USER_LOADING";
 export const USER_LOADED = "USER_LOADED";
 export const AUTH_ERROR = "AUTH_ERROR";

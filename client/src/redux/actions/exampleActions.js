@@ -1,7 +1,13 @@
 import axios from "axios";
 import { returnErrors } from "./errorActions";
+import { tokenConfig } from "./authActions";
 
-import { EXAMPLES_LOADING, GET_EXAMPLES } from "./actionTypes";
+import {
+  EXAMPLES_LOADING,
+  EXAMPLES_LOADED,
+  ADD_EXAMPLE,
+  DELETE_EXAMPLE
+} from "./actionTypes";
 
 export const getExamples = () => async dispatch => {
   dispatch({ type: EXAMPLES_LOADING });
@@ -9,9 +15,28 @@ export const getExamples = () => async dispatch => {
   try {
     const res = await axios.get("/api/example");
     setTimeout(() => {
-      dispatch({ type: GET_EXAMPLES, payload: res.data.payload.examples });
+      dispatch({ type: EXAMPLES_LOADED, payload: res.data.payload.examples });
     }, 1000);
   } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status));
+  }
+};
+
+export const addExample = item => async (dispatch, getState) => {
+  try {
+    const res = await axios.post("/api/example", item, tokenConfig(getState));
+    dispatch({ type: ADD_EXAMPLE, payload: res.data.payload });
+  } catch (err) {
+    dispatch(returnErrors(err.response.data, err.response.status));
+  }
+};
+
+export const deleteExample = id => async (dispatch, getState) => {
+  try {
+    await axios.delete(`/api/example/${id}`, tokenConfig(getState));
+    dispatch({ type: DELETE_EXAMPLE, payload: id });
+  } catch (err) {
+    console.log(err);
     dispatch(returnErrors(err.response.data, err.response.status));
   }
 };
