@@ -29,6 +29,7 @@ const buttonStyle = {
 
 class ExamplesList extends Component {
   static propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
     examples: PropTypes.array.isRequired,
     examplesLoading: PropTypes.bool.isRequired,
     getExamples: PropTypes.func.isRequired,
@@ -46,8 +47,8 @@ class ExamplesList extends Component {
   };
 
   render() {
-    const { examples, examplesLoading } = this.props;
-    return (
+    const { examples, examplesLoading, isAuthenticated } = this.props;
+    return isAuthenticated ? (
       <div className="container">
         <h2>Examples</h2>
         {examplesLoading ? <div>Loading...</div> : null}
@@ -66,13 +67,18 @@ class ExamplesList extends Component {
           </div>
         ))}
       </div>
+    ) : (
+      <div className="container">
+        <h2>Please Log In To View List</h2>
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
   examples: state.example.examples,
-  examplesLoading: state.example.examplesLoading
+  examplesLoading: state.example.examplesLoading,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 const mapDispatchToProps = {
