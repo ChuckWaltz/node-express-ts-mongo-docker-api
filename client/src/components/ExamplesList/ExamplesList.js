@@ -68,7 +68,7 @@ class ExamplesList extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    const { error } = this.props;
+    const { error, isAuthenticated } = this.props;
     if (error !== prevProps.error) {
       // Check for add error
       if (error.id === "ADD_EXAMPLE_FAIL") {
@@ -77,10 +77,7 @@ class ExamplesList extends Component {
         this.setState({ errorMessage: null });
       }
     }
-  }
-
-  componentDidMount() {
-    this.props.getExamples();
+    if (isAuthenticated && !prevProps.isAuthenticated) this.props.getExamples();
   }
 
   toggleAddModal = () => {
@@ -179,7 +176,6 @@ class ExamplesList extends Component {
               label="Age"
               type="number"
               fullWidth
-              autoFocus
               margin="dense"
               onChange={this.onChange}
             />
@@ -189,7 +185,6 @@ class ExamplesList extends Component {
               label="Gender"
               type="text"
               fullWidth
-              autoFocus
               margin="dense"
               onChange={this.onChange}
             />

@@ -4,6 +4,8 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import { loadUser } from "./redux/actions/authActions";
 
+import { AUTH_ERROR } from "./redux/actions/actionTypes";
+
 import TopBar from "./components/TopBar/TopBar";
 import ExamplesList from "./components/ExamplesList/ExamplesList";
 
@@ -21,7 +23,10 @@ const theme = createMuiTheme({
 
 class App extends Component {
   componentDidMount() {
-    store.dispatch(loadUser());
+    if (store.getState().auth.token) store.dispatch(loadUser());
+    else {
+      store.dispatch({ type: AUTH_ERROR });
+    }
   }
   render() {
     return (
