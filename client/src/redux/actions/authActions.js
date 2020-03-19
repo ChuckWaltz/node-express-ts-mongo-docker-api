@@ -10,9 +10,10 @@ import {
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-  REGISTER_FAIL,
-  CLEAR_EXAMPLES
-} from "./actionTypes";
+  REGISTER_FAIL
+} from "../types/authTypes";
+
+import { CLEAR_EXAMPLES } from "../types/exampleTypes";
 
 // Check token & load user
 export const loadUser = () => async (dispatch, getState) => {

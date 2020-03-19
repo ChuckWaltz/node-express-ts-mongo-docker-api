@@ -7,7 +7,7 @@ import {
   EXAMPLES_LOADED,
   ADD_EXAMPLE,
   DELETE_EXAMPLE
-} from "./actionTypes";
+} from "../types/exampleTypes";
 
 export const getExamples = () => async (dispatch, getState) => {
   dispatch({ type: EXAMPLES_LOADING });

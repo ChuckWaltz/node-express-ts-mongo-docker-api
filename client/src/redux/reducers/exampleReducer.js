@@ -4,7 +4,7 @@ import {
   ADD_EXAMPLE,
   DELETE_EXAMPLE,
   CLEAR_EXAMPLES
-} from "../actions/actionTypes";
+} from "../types/exampleTypes";
 
 const initialState = {
   examples: [],

@@ -1,4 +1,4 @@
-import { GET_ERRORS, CLEAR_ERRORS } from "../actions/actionTypes";
+import { GET_ERRORS, CLEAR_ERRORS } from "../types/errorTypes";
 
 const initialState = {
   response: {},

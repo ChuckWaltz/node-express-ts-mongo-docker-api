@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import { loadUser } from "./redux/actions/authActions";
 
-import { AUTH_ERROR } from "./redux/actions/actionTypes";
+import { AUTH_ERROR } from "./redux/types/authTypes";
 
 import TopBar from "./components/TopBar/TopBar";
 import ExamplesList from "./components/ExamplesList/ExamplesList";
