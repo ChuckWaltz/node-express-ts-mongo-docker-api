@@ -9,11 +9,11 @@ import {
   DELETE_EXAMPLE
 } from "./actionTypes";
 
-export const getExamples = () => async dispatch => {
+export const getExamples = () => async (dispatch, getState) => {
   dispatch({ type: EXAMPLES_LOADING });
 
   try {
-    const res = await axios.get("/api/example");
+    const res = await axios.get("/api/example", tokenConfig(getState));
     setTimeout(() => {
       dispatch({ type: EXAMPLES_LOADED, payload: res.data.payload.examples });
     }, 1000);

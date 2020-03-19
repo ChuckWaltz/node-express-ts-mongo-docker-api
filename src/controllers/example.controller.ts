@@ -5,12 +5,12 @@ import { Example } from "../models/example.model";
 export class ExampleController {
   // @desc    Get all examples
   // @route   GET /api/examples
-  // @access  Public
+  // @access  Protected
   public async getExamples(req: Request, res: Response) {
     let response = new APIResponse();
 
     try {
-      const examples = await Example.find();
+      const examples = await Example.find({ userId: req.user.id });
 
       response.success = true;
       response.message = `Examples returned successfully`;
@@ -29,6 +29,7 @@ export class ExampleController {
     let response = new APIResponse();
 
     try {
+      req.body.userId = req.user.id;
       const newExample = await Example.create(req.body);
 
       response.success = true;

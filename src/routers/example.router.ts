@@ -9,7 +9,7 @@ export class ExampleRouter {
     this.exampleController = new ExampleController();
 
     // Set up routes
-    this.router.get("/example", this.exampleController.getExamples);
+    this.router.get("/example", auth, this.exampleController.getExamples);
 
     this.router.post("/example", auth, this.exampleController.addExample);
 

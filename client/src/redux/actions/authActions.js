@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getExamples } from "./exampleActions";
 import { returnErrors } from "./errorActions";
 
 import {
@@ -9,7 +10,8 @@ import {
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-  REGISTER_FAIL
+  REGISTER_FAIL,
+  CLEAR_EXAMPLES
 } from "./actionTypes";
 
 // Check token & load user
@@ -64,6 +66,7 @@ export const loginUser = ({ email, password }) => async dispatch => {
   try {
     const res = await axios.post("/api/user/login", body, config);
     dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload });
+    dispatch(getExamples());
   } catch (err) {
     dispatch(
       returnErrors(err.response.data, err.response.status, "LOGIN_FAIL")
@@ -75,6 +78,7 @@ export const loginUser = ({ email, password }) => async dispatch => {
 // Logout User
 export const logoutUser = () => dispatch => {
   dispatch({ type: LOGOUT_SUCCESS });
+  dispatch({ type: CLEAR_EXAMPLES });
 };
 
 // Setup config/headers & token

@@ -2,7 +2,8 @@ import {
   EXAMPLES_LOADED,
   EXAMPLES_LOADING,
   ADD_EXAMPLE,
-  DELETE_EXAMPLE
+  DELETE_EXAMPLE,
+  CLEAR_EXAMPLES
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -32,6 +33,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         examples: state.examples.filter(ex => ex._id !== action.payload)
+      };
+    case CLEAR_EXAMPLES:
+      return {
+        examples: [],
+        examplesLoading: false
       };
     default:
       return state;
