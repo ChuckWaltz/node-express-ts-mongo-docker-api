@@ -21,8 +21,12 @@ const itemStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  width: "200px",
-  marginBottom: "10px"
+  width: "100%",
+  marginBottom: "10px",
+  border: "1px solid lightgrey",
+  padding: "5px",
+  paddingLeft: "10px",
+  borderRadius: "5px"
 };
 
 const addButtonStyle = {
@@ -31,7 +35,7 @@ const addButtonStyle = {
   padding: "5px 10px",
   width: "100%",
   cursor: "pointer",
-  marginTop: "10px"
+  marginTop: "5px"
 };
 
 const deleteButtonStyle = {
@@ -44,7 +48,7 @@ const deleteButtonStyle = {
 
 class ExamplesList extends Component {
   static propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool,
     examples: PropTypes.array.isRequired,
     examplesLoading: PropTypes.bool.isRequired,
     getExamples: PropTypes.func.isRequired,
@@ -59,7 +63,8 @@ class ExamplesList extends Component {
     errorMessage: null,
     name: "",
     age: null,
-    gender: ""
+    gender: "",
+    formValid: false
   };
 
   componentDidUpdate(prevProps) {
@@ -87,7 +92,7 @@ class ExamplesList extends Component {
   };
 
   onChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value }, this.validateForm);
   };
 
   onSubmit = e => {
@@ -105,9 +110,21 @@ class ExamplesList extends Component {
     this.props.clearErrors();
   };
 
+  validateForm = () => {
+    let valid = true;
+    if (
+      this.state.name.length < 2 ||
+      this.state.age <= 0 ||
+      this.state.gender.length < 1
+    )
+      valid = false;
+
+    this.setState({ formValid: valid });
+  };
+
   render() {
     const { examples, examplesLoading, isAuthenticated } = this.props;
-    return isAuthenticated ? (
+    return isAuthenticated === true ? (
       <div className="container">
         <h2>Examples</h2>
         {examplesLoading ? <div>Loading...</div> : null}
@@ -185,17 +202,22 @@ class ExamplesList extends Component {
             >
               Cancel
             </Button>
-            <Button color="primary" variant="contained" onClick={this.onSubmit}>
+            <Button
+              color="primary"
+              variant="contained"
+              disabled={!this.state.formValid}
+              onClick={this.onSubmit}
+            >
               Submit
             </Button>
           </DialogActions>
         </Dialog>
       </div>
-    ) : (
+    ) : isAuthenticated === false ? (
       <div className="container">
         <h2>Please Log In To View List</h2>
       </div>
-    );
+    ) : null;
   }
 }
 
